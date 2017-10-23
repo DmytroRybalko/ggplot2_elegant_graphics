@@ -26,3 +26,84 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+    geom_point()
+
+```
+What does ggplot(mpg, aes(model, manufacturer)) + geom point() show? Is it useful?
+```{r}
+ggplot(mpg, aes(model, manufacturer)) +
+    geom_point()
+```
+## Colour, Size, Shape and Other Aesthetic Attributes
+```{r}
+ggplot(mpg, aes(displ, cty, color = class)) +
+    geom_point()
+```
+```{r}
+ggplot(mpg, aes(displ, cty, shape = drv)) +
+    geom_point()
+```
+```{r}
+ggplot(mpg, aes(displ, cty, size = cyl)) +
+    geom_point()
+```
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point(aes(colour = "blue"))
+```
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point(colour = "blue")
+```
+Experiment with the colour, shape and size aesthetics. What happens when you map them to continuous values? What about categorical values?
+```{r}
+ggplot(mpg, aes(model, year)) +
+    geom_point()
+```
+How is drive train related to fuel economy?
+```{r}
+ggplot(mpg, aes(drv, cty)) +
+    geom_point()
+```
+Jittering, geom jitter() , adds a little random noise to the data which can
+help avoid overplotting.
+```{r}
+ggplot(mpg, aes(drv, hwy)) + geom_jitter()
+```
+Boxplots, geom boxplot() , summarise the shape of the distribution with a
+handful of summary statistics.
+```{r}
+ggplot(mpg, aes(drv, hwy)) + geom_boxplot()
+```
+Violin plots, geom violin() , show a compact representation of the “density”
+of the distribution, highlighting the areas where more points are found.
+```{r}
+ggplot(mpg, aes(drv, hwy)) + geom_violin()
+```
+# Faceting
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    facet_wrap(~class)
+```
+What happens if you try to facet by a continuous variable like cyl?
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    facet_wrap(~cyl)
+```
+Use facetting to explore the three-way relationship between fuel economy,
+engine size, and number of cylinders. How does facetting by number of
+cylinders change your assessment of the relationship between engine size
+and fuel economy?
+```{r}
+ggplot(mpg, aes(cty, displ)) +
+    geom_point() +
+    facet_wrap(~cyl)
+```
+
