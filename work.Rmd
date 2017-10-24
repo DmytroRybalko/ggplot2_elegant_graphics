@@ -106,4 +106,53 @@ ggplot(mpg, aes(cty, displ)) +
     geom_point() +
     facet_wrap(~cyl)
 ```
+Histograms and frequency polygons
+```{r}
+ggplot(mpg, aes(hwy)) + geom_histogram()
+```
+```{r}
+ggplot(mpg, aes(hwy)) + geom_freqpoly()
+```
+Compare the distributions of different subgroups
+```{r}
+ggplot(mpg, aes(displ, color = drv)) +
+    geom_freqpoly(binwidth = 0.5)
+```
+```{r}
+ggplot(mpg, aes(displ, fill = drv)) +
+    geom_histogram(binwidth = 0.5) +
+    facet_wrap(~drv, ncol = 1)
+```
+Bar charts
+```{r}
+ggplot(mpg, aes(manufacturer)) +
+    geom_bar()
+    
+```
+Time Series with Line and Path Plots
+```{r}
+ggplot(economics, aes(date, unemploy / pop)) +
+    geom_line()
+```
+```{r}
+ggplot(economics, aes(date, uempmed)) +
+    geom_line()
+```
+
+```{r}
+year <- function(x) as.POSIXlt(x)$year + 1900
+ggplot(economics, aes(unemploy / pop, uempmed)) +
+    geom_path(color = "grey50") +
+    geom_point(aes(color = year(date)))
+```
+
+```{r}
+ggplot(mpg, aes(class, hwy)) +
+    geom_boxplot()
+```
+
+```{r}
+ggplot(mpg, aes(reorder(class, hwy), hwy)) +
+    geom_boxplot()
+```
 
