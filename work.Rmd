@@ -318,6 +318,22 @@ ggplot(diamonds, aes(depth)) +
     xlim(58, 68) +
     theme(legend.position = "none")
 ```
+An alternative to a bin-based visualisation is a density estimate.
+geom density()
+```{r}
+ggplot(diamonds, aes(depth)) +
+    geom_density(na.rm = T) +
+    xlim(58, 68) +
+    theme(legend.position = "none")
+```
+```{r}
+ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
+    geom_density(alpha = 0.2, na.rm = T) +
+    xlim(58, 68)
+    #theme(legend.position = "none")
+
+```
+
 
 For continuous x, you’ll also need to set the group aesthetic to define how the
 x variable is broken up into bins
@@ -325,5 +341,16 @@ x variable is broken up into bins
 ggplot(diamonds, aes(carat, depth)) +
     geom_boxplot(aes(group = cut_width(carat, 0.1))) +
     xlim(NA, 2.05)
+```
+The first example in each pair shows how we can count the number of diamonds in
+each bin
+```{r}
+ggplot(diamonds, aes(color)) +
+    geom_bar()
+```
+The second shows how we can compute the average price
+```{r}
+ggplot(diamonds, aes(color, price)) +
+    geom_bar(stat = "summary_bin", fun.y = mean)
 ```
 
