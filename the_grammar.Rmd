@@ -10,4 +10,47 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(ggplot2)
 ```
+# 5. Build a Plot Layer by Layer
+## A statistical transformation or stats
+Explore stat_sammary() function
+```{r}
+d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
+d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+```
+```{r}
+d + stat_summary(fun.y = "median", colour = "red", size = 2, geom = "point")
+```
+```{r}
+d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
+```
+```{r}
+d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
+  colour = "red")
+```
+## Position Adjustments
+```{r}
+dplot <- ggplot(diamonds, aes(color, fill = cut)) +
+    xlab(NULL) + ylab(NULL) + theme(legend.position = "none")
+dplot + geom_bar()
+```
+```{r}
+dplot + geom_bar(position = "fill")
+```
+```{r}
+dplot + geom_bar(position = "dodge")
+```
+
+# 6. Scales, Axes and Legends
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point(aes(colour = class)) +
+    scale_x_continuous("A really awesome x axis ") +
+    scale_y_continuous("An amazingly great y axis ")
+```
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+    geom_point(aes(colour = class)) +
+    scale_x_sqrt() +
+    scale_color_brewer()
+```
 
